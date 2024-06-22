@@ -1,13 +1,11 @@
 package com.service.booking.rental.platform.datasources.database.model;
 
-import com.service.booking.rental.platform.entities.enums.BookingStatus;
+import com.service.booking.rental.platform.entities.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.time.LocalDate;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -17,26 +15,22 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "BOOKING")
-public class BookingEntity {
+@Table(name = "PROPERTY_USER")
+public class PropertyUserEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "START_DATE")
-    private LocalDate startDate;
+    @Column(name = "FULL_NAME")
+    private String fullName;
 
-    @Column(name = "END_DATE")
-    private LocalDate endDate;
+    @Column(name = "MAIL")
+    private String mail;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_GUEST")
-    private PropertyUserEntity user;
-
-    @Column(name = "STATUS")
+    @Column(name = "ROLE")
     @Enumerated(STRING)
-    private BookingStatus status;
+    private Role role;
 
 }

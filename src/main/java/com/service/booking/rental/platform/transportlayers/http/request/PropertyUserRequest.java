@@ -2,17 +2,14 @@ package com.service.booking.rental.platform.transportlayers.http.request;
 
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Data
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class BookingRequest {
+public class PropertyUserRequest {
     private Long id;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private PropertyUserRequest user;
-    private String status;
+    private String fullName;
+    private String mail;
+    private String role;
 }

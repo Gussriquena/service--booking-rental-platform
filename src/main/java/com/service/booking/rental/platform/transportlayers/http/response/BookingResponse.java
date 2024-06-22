@@ -1,4 +1,4 @@
-package com.service.booking.rental.platform.transportlayers.http.request;
+package com.service.booking.rental.platform.transportlayers.http.response;
 
 import lombok.*;
 
@@ -6,13 +6,13 @@ import java.time.LocalDate;
 
 @Data
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
-public class BookingRequest {
+public class BookingResponse {
     private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
-    private PropertyUserRequest user;
+    private PropertyUserResponse user;
     private String status;
 }
