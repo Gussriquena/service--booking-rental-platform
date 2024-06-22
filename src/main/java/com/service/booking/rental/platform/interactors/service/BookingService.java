@@ -4,7 +4,6 @@ import com.service.booking.rental.platform.entities.Booking;
 import com.service.booking.rental.platform.repositores.BookingRepository;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class BookingService {
 

@@ -9,10 +9,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class BookingRequest {
-    private Long id;
+public class BookingCreateRequest {
     private LocalDate startDate;
     private LocalDate endDate;
-    private PropertyUserRequest user;
-    private String status;
+    private Long idGuest;
+    private Long idProperty;
 }

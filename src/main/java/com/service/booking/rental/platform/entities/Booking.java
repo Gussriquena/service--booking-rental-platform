@@ -14,6 +14,7 @@ public class Booking {
     private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
-    private PropertyUser user;
+    private PropertyUser guest;
+    private Property property;
     private BookingStatus status;
 }
