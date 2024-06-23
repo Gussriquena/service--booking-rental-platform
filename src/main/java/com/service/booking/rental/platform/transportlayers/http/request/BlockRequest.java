@@ -9,7 +9,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-
 public class BlockRequest {
     private Long idProperty;
     private LocalDate startDate;

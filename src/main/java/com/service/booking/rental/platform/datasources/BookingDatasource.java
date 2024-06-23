@@ -12,11 +12,13 @@ import com.service.booking.rental.platform.exceptions.BookingNotFoundException;
 import com.service.booking.rental.platform.exceptions.PropertyNotFoundException;
 import com.service.booking.rental.platform.exceptions.UserNotFoundException;
 import com.service.booking.rental.platform.repositores.BookingRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
 @Component
+@Slf4j
 public class BookingDatasource implements BookingRepository {
     private static final BookingMapper MAPPER = BookingMapper.INSTANCE;
     private final BookingJpaRepository bookingJpaRepository;
@@ -32,6 +34,8 @@ public class BookingDatasource implements BookingRepository {
     }
 
     public Booking bookProperty(Booking booking) {
+        log.info("BookingDatasource - creating new booking on database");
+
         BookingEntity entity = MAPPER.map(booking);
 
         Long idGuest = entity.getGuest().getId();
@@ -52,6 +56,7 @@ public class BookingDatasource implements BookingRepository {
     }
 
     public Booking getBookingById(Long id) {
+        log.info("BookingDatasource - retrieving booking by id from database");
         BookingEntity entity = bookingJpaRepository.findById(id)
                 .orElseThrow(() -> new BookingNotFoundException(id));
 
@@ -59,6 +64,8 @@ public class BookingDatasource implements BookingRepository {
     }
 
     public Booking updateBookingById(Long id, Booking booking) {
+        log.info("BookingDatasource - updating booking on database by id");
+
         BookingEntity entity = MAPPER.map(id, booking);
 
         Long idProperty = entity.getProperty().getId();
@@ -83,14 +90,17 @@ public class BookingDatasource implements BookingRepository {
     }
 
     public void deleteById(Long id) {
+        log.info("BookingDatasource - deleting booking from database");
         bookingJpaRepository.deleteById(id);
     }
 
     public boolean hasOverlapingDates(Long idProperty, LocalDate startDate, LocalDate endDate) {
+        log.info("BookingDatasource - SQL - checking for overlaping dates with parameters - [idProperty, startDate, endDate]");
         return bookingJpaRepository.hasOverlapingDates(idProperty, startDate, endDate);
     }
 
     public boolean hasOverlapingDatesForGuest(Booking booking) {
+        log.info("BookingDatasource - SQL - checking for overlaping dates with guest id");
         return bookingJpaRepository.hasOverlapingDatesForGuest(
                 booking.getProperty().getId(),
                 booking.getGuest().getId(),
@@ -99,6 +109,7 @@ public class BookingDatasource implements BookingRepository {
     }
 
     public void updateStatus(Booking booking) {
+        log.info("BookingDatasource - updating booking data on database");
         BookingEntity entity = MAPPER.map(booking);
         bookingJpaRepository.save(entity);
     }

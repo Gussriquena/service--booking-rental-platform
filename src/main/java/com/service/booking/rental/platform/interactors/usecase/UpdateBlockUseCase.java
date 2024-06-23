@@ -3,9 +3,11 @@ package com.service.booking.rental.platform.interactors.usecase;
 import com.service.booking.rental.platform.entities.Block;
 import com.service.booking.rental.platform.interactors.validate.BookingValidation;
 import com.service.booking.rental.platform.repositores.BlockRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class UpdateBlockUseCase {
 
     private final BlockRepository repository;
@@ -17,6 +19,7 @@ public class UpdateBlockUseCase {
     }
 
     public Block execute(Block block){
+        log.info("UpdateBlockUseCase - running use case to update existing block");
         bookingValidation.validateBlockUpdateFeasibility(block);
         return repository.update(block);
     }

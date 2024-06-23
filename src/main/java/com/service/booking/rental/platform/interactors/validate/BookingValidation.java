@@ -6,6 +6,7 @@ import com.service.booking.rental.platform.exceptions.InvalidDateException;
 import com.service.booking.rental.platform.exceptions.PropertyUnavailableException;
 import com.service.booking.rental.platform.repositores.BlockRepository;
 import com.service.booking.rental.platform.repositores.BookingRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import static java.util.Objects.isNull;
 
 @Service
+@Slf4j
 public class BookingValidation {
 
     private final BookingRepository bookingRepository;
@@ -24,24 +26,32 @@ public class BookingValidation {
     }
 
     public void validateBookingAvailability(Booking booking){
+        log.info("BookingValidation - starting booking availability validation");
+
         validateDates(booking.getStartDate(), booking.getEndDate());
         validatePropertyOverlaps(booking);
         validateBlocksOnProperty(booking.getProperty().getId(), booking.getStartDate(), booking.getEndDate());
     }
 
     public void validateBookingUpdate(Booking booking){
+        log.info("BookingValidation - starting booking validation for update");
+
         validateDates(booking.getStartDate(), booking.getEndDate());
         validatePropertyOverlapsForUpdating(booking);
         validateBlocksOnProperty(booking.getProperty().getId(), booking.getStartDate(), booking.getEndDate());
     }
 
     public void validateBlockFeasibility(Block block){
+        log.info("BookingValidation - starting validation for placing block");
+
         validateDates(block.getStartDate(), block.getEndDate());
         validateBlocksOnProperty(block.getProperty().getId(), block.getStartDate(), block.getEndDate());
         validatePropertyOverlaps(block);
     }
 
     public void validateBlockUpdateFeasibility(Block block){
+        log.info("BookingValidation - starting validation for update block");
+
         validateDates(block.getStartDate(), block.getEndDate());
         validatePropertyOverlaps(block);
     }
