@@ -1,5 +1,6 @@
 package com.service.booking.rental.platform.interactors.validate;
 
+import com.service.booking.rental.platform.entities.Block;
 import com.service.booking.rental.platform.entities.Booking;
 import com.service.booking.rental.platform.exceptions.InvalidDateException;
 import com.service.booking.rental.platform.exceptions.PropertyUnavailableException;
@@ -25,17 +26,31 @@ public class BookingValidation {
     public void validateBookingAvailability(Booking booking){
         validateDates(booking.getStartDate(), booking.getEndDate());
         validatePropertyOverlaps(booking);
-        validateBlocksOnProperty(booking);
+        validateBlocksOnProperty(booking.getProperty().getId(), booking.getStartDate(), booking.getEndDate());
     }
 
     public void validateBookingUpdate(Booking booking){
         validateDates(booking.getStartDate(), booking.getEndDate());
         validatePropertyOverlapsForUpdating(booking);
-        validateBlocksOnProperty(booking);
+        validateBlocksOnProperty(booking.getProperty().getId(), booking.getStartDate(), booking.getEndDate());
+    }
+
+    public void validateBlockFeasibility(Block block){
+        validateDates(block.getStartDate(), block.getEndDate());
+        validateBlocksOnProperty(block.getProperty().getId(), block.getStartDate(), block.getEndDate());
+        validatePropertyOverlaps(block);
+    }
+
+    private void validatePropertyOverlaps(Block block){
+        boolean hasOverlapingDates = bookingRepository.hasOverlapingDates(block.getProperty().getId(), block.getStartDate(), block.getEndDate());
+
+        if (hasOverlapingDates){
+            throw new PropertyUnavailableException("Error placing block: the chosen period is already booked");
+        }
     }
 
     private void validatePropertyOverlaps(Booking booking){
-        boolean hasOverlapingDates = bookingRepository.hasOverlapingDates(booking);
+        boolean hasOverlapingDates = bookingRepository.hasOverlapingDates(booking.getProperty().getId(), booking.getStartDate(), booking.getEndDate());
 
         if (hasOverlapingDates){
             throw new PropertyUnavailableException("The chosen period is unavailable for this property");
@@ -50,8 +65,8 @@ public class BookingValidation {
         }
     }
 
-    private void validateBlocksOnProperty(Booking booking){
-        boolean hasBlocks = blockRepository.hasBlocksByPropertyWithinDate(booking.getProperty().getId(), booking.getStartDate(), booking.getEndDate());
+    private void validateBlocksOnProperty(Long idProperty, LocalDate startDate, LocalDate endDate){
+        boolean hasBlocks = blockRepository.hasBlocksByPropertyWithinDate(idProperty, startDate, endDate);
 
         if(hasBlocks){
             throw new PropertyUnavailableException("The property is blocked within selected dates");
