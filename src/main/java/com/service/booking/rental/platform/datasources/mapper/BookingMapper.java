@@ -17,4 +17,5 @@ public interface BookingMapper {
 
     @Mapping(target = "id", source = "id")
     BookingEntity map(Long id, Booking booking);
+
 }

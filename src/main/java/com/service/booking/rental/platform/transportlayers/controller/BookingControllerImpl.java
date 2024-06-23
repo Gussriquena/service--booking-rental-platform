@@ -1,8 +1,8 @@
 package com.service.booking.rental.platform.transportlayers.controller;
 
 import com.service.booking.rental.platform.entities.Booking;
+import com.service.booking.rental.platform.entities.enums.BookingStatus;
 import com.service.booking.rental.platform.interactors.service.BookingService;
-import com.service.booking.rental.platform.interactors.usecase.BookPropertyUseCase;
 import com.service.booking.rental.platform.transportlayers.http.request.BookingCreateRequest;
 import com.service.booking.rental.platform.transportlayers.http.request.BookingUpdateRequest;
 import com.service.booking.rental.platform.transportlayers.http.response.BookingResponse;
@@ -17,20 +17,36 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class BookingControllerImpl {
     private static final BookingMapper MAPPER = BookingMapper.INSTANCE;
     private final BookingService bookingService;
-    private final BookPropertyUseCase bookPropertyUseCase;
 
-    public BookingControllerImpl(BookingService bookingService, BookPropertyUseCase bookPropertyUseCase){
+    public BookingControllerImpl(BookingService bookingService){
         this.bookingService = bookingService;
-        this.bookPropertyUseCase = bookPropertyUseCase;
     }
 
     @PostMapping
     public ResponseEntity<BookingResponse> bookProperty(@RequestBody BookingCreateRequest request){
         Booking booking = MAPPER.map(request);
-        Booking createdBooking = bookPropertyUseCase.execute(booking);
+        Booking createdBooking = bookingService.bookProperty(booking);
         BookingResponse response = MAPPER.map(createdBooking);
 
         return ResponseEntity.status(CREATED).body(response);
+    }
+
+    @PostMapping("/{id}/cancel")
+    public ResponseEntity<BookingResponse> cancelBooking(@PathVariable("id") Long id){
+        bookingService.updateStatus(id, BookingStatus.CANCELED);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/reopen")
+    public ResponseEntity<BookingResponse> reopenBooking(@PathVariable("id") Long id){
+        bookingService.updateStatus(id, BookingStatus.CONFIRMED);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/close")
+    public ResponseEntity<BookingResponse> closeBooking(@PathVariable("id") Long id){
+        bookingService.updateStatus(id, BookingStatus.FINISHED);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")

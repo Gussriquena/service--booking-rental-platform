@@ -43,7 +43,7 @@ public class ControllerAdviceConfiguration {
 
     @ResponseBody
     @ExceptionHandler(PropertyUnavailableException.class)
-    @ResponseStatus(INTERNAL_SERVER_ERROR)
+    @ResponseStatus(CONFLICT)
     public GeneralError propertyUnavailableException(Exception e){
         return GeneralError.builder()
                 .code(409)

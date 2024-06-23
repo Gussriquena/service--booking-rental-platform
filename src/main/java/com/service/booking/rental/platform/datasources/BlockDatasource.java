@@ -1,12 +1,10 @@
 package com.service.booking.rental.platform.datasources;
 
 import com.service.booking.rental.platform.datasources.database.repository.BlockJpaRepository;
-import com.service.booking.rental.platform.entities.Block;
 import com.service.booking.rental.platform.repositores.BlockRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Component
 public class BlockDatasource implements BlockRepository {
