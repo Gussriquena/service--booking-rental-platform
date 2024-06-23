@@ -6,11 +6,12 @@ import java.time.LocalDate;
 
 @Data
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
-public class BlockRequest {
-    private Long idProperty;
+public class BookingCreateRequest {
     private LocalDate startDate;
     private LocalDate endDate;
+    private Long idGuest;
+    private Long idProperty;
 }

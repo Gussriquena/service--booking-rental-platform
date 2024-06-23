@@ -8,19 +8,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class CreateBlockUseCase {
+public class UpdateBlockUseCase {
 
-    private final BlockRepository blockRepository;
+    private final BlockRepository repository;
     private final BookingValidation bookingValidation;
 
-    public CreateBlockUseCase(BlockRepository blockRepository, BookingValidation bookingValidation) {
-        this.blockRepository = blockRepository;
+    public UpdateBlockUseCase(BlockRepository repository, BookingValidation bookingValidation) {
+        this.repository = repository;
         this.bookingValidation = bookingValidation;
     }
 
-    public Block execute(Block block) {
-        log.info("CreateBlockUseCase - running use case to create new block");
-        bookingValidation.validateBlockFeasibility(block);
-        return blockRepository.create(block);
+    public Block execute(Block block){
+        log.info("UpdateBlockUseCase - running use case to update existing block");
+        bookingValidation.validateBlockUpdateFeasibility(block);
+        return repository.update(block);
     }
 }

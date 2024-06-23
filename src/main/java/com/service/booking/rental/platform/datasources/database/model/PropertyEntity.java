@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.time.LocalDate;
-
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Data
@@ -15,22 +13,20 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "BLOCK")
-public class BlockEntity {
-
+@Table(name = "PROPERTY")
+public class PropertyEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "START_DATE")
-    private LocalDate startDate;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "END_DATE")
-    private LocalDate endDate;
+    @Column(name = "address")
+    private String address;
 
     @ManyToOne
-    @JoinColumn(name = "ID_PROPERTY")
-    private PropertyEntity property;
-
+    @JoinColumn(name = "ID_OWNER")
+    private PropertyUserEntity owner;
 }
