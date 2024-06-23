@@ -8,33 +8,34 @@ import com.service.booking.rental.platform.repositores.BookingRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 import static java.util.Objects.isNull;
 
 @Service
 public class BookPropertyUseCase {
 
-    private final BookingRepository repository;
+    private final BookingRepository bookingRepository;
     private final BlockRepository blockRepository;
 
-    public BookPropertyUseCase(BookingRepository repository, BlockRepository blockRepository){
-        this.repository = repository;
+    public BookPropertyUseCase(BookingRepository bookingRepository, BlockRepository blockRepository){
+        this.bookingRepository = bookingRepository;
         this.blockRepository = blockRepository;
     }
 
     public Booking execute(Booking booking){
         validateDates(booking.getStartDate(), booking.getEndDate());
-        validateBlocksOnProperty(booking);
         validatePropertyOverlaps(booking);
+        validateBlocksOnProperty(booking);
 
-        return repository.bookProperty(booking);
+        return bookingRepository.bookProperty(booking);
     }
 
     private void validatePropertyOverlaps(Booking booking){
-        // TODO: CHECK IF THIS PROPERTY HAS A BOOKING WITHIN DATE RANGE
-        // AND CHECK IF THIS BOOKING HAS STATUS "CONFIRMED"
-        //
+        boolean hasOverlapingDates = bookingRepository.hasOverlapingDates(booking.getProperty().getId(), booking.getStartDate(), booking.getEndDate());
+
+        if (hasOverlapingDates){
+            throw new PropertyUnavailableException("The chosen period is unavailable for this property");
+        }
     }
 
     private void validateBlocksOnProperty(Booking booking){

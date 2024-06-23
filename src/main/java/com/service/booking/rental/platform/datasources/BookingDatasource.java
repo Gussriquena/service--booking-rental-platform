@@ -15,6 +15,8 @@ import com.service.booking.rental.platform.repositores.BookingRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class BookingDatasource implements BookingRepository {
     private static final BookingMapper MAPPER = BookingMapper.INSTANCE;
@@ -82,5 +84,9 @@ public class BookingDatasource implements BookingRepository {
 
     public void deleteById(Long id) {
         bookingJpaRepository.deleteById(id);
+    }
+
+    public boolean hasOverlapingDates(Long idProperty, LocalDate startDate, LocalDate endDate) {
+        return bookingJpaRepository.hasOverlapingDates(idProperty, startDate, endDate);
     }
 }
