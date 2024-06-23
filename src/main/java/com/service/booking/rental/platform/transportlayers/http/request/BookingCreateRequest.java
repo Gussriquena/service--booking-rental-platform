@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@Builder
 public class BookingCreateRequest {
     private LocalDate startDate;
     private LocalDate endDate;
