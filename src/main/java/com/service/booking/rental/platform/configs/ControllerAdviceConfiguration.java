@@ -18,7 +18,8 @@ public class ControllerAdviceConfiguration {
     @ExceptionHandler({
             BookingNotFoundException.class,
             UserNotFoundException.class,
-            PropertyNotFoundException.class
+            PropertyNotFoundException.class,
+            BlockNotFound.class
     })
     @ResponseStatus(NOT_FOUND)
     public GeneralError notFoundException(Exception e){

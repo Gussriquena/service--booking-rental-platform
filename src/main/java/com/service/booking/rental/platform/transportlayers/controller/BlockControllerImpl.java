@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
@@ -31,25 +33,31 @@ public class BlockControllerImpl {
     }
 
     @GetMapping
-    public ResponseEntity<Void> getByPropertyId(@Param("idProperty") Long idProperty){
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<BlockResponse>> listByPropertyId(@Param("idProperty") Long idProperty){
+        List<Block> block = blockService.listByPropertyId(idProperty);
+        List<BlockResponse> response = MAPPER.map(block);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Void> getById(@PathVariable("id") Long id){
-
-        return ResponseEntity.ok().build();
+    public ResponseEntity<BlockResponse> getById(@PathVariable("id") Long id){
+        Block block = blockService.getById(id);
+        BlockResponse response = MAPPER.map(block);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable("id") Long id){
-        return ResponseEntity.ok().build();
+    public ResponseEntity<BlockResponse> updateById(@PathVariable("id") Long id, @RequestBody BlockRequest blockRequest){
+        Block block = MAPPER.map(blockRequest);
+        Block updatedBlock = blockService.updateById(block);
+        BlockResponse response = MAPPER.map(updatedBlock);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+    public ResponseEntity<Void> deleteById(@PathVariable("id") Long id){
+        blockService.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
 
 }

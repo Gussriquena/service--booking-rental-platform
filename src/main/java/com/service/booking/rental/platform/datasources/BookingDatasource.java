@@ -12,7 +12,6 @@ import com.service.booking.rental.platform.exceptions.BookingNotFoundException;
 import com.service.booking.rental.platform.exceptions.PropertyNotFoundException;
 import com.service.booking.rental.platform.exceptions.UserNotFoundException;
 import com.service.booking.rental.platform.repositores.BookingRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -32,18 +31,17 @@ public class BookingDatasource implements BookingRepository {
         this.propertyJpaRepository = propertyJpaRepository;
     }
 
-    @Transactional
     public Booking bookProperty(Booking booking) {
         BookingEntity entity = MAPPER.map(booking);
 
-        Long guestId = entity.getGuest().getId();
-        Long propertyId = entity.getProperty().getId();
+        Long idGuest = entity.getGuest().getId();
+        Long idProperty = entity.getProperty().getId();
 
-        PropertyUserEntity guestEntity = propertyUserJpaRepository.findById(guestId)
-                .orElseThrow(() -> new UserNotFoundException(guestId));
+        PropertyUserEntity guestEntity = propertyUserJpaRepository.findById(idGuest)
+                .orElseThrow(() -> new UserNotFoundException(idGuest));
 
-        PropertyEntity propertyEntity = propertyJpaRepository.findById(propertyId)
-                .orElseThrow(() -> new PropertyNotFoundException(propertyId));
+        PropertyEntity propertyEntity = propertyJpaRepository.findById(idProperty)
+                .orElseThrow(() -> new PropertyNotFoundException(idProperty));
 
         BookingEntity createdEntity = bookingJpaRepository.save(entity);
 
@@ -60,20 +58,22 @@ public class BookingDatasource implements BookingRepository {
         return MAPPER.map(entity);
     }
 
-    @Transactional
     public Booking updateBookingById(Long id, Booking booking) {
         BookingEntity entity = MAPPER.map(id, booking);
+
+        Long idProperty = entity.getProperty().getId();
+        Long idPropertyUser = entity.getGuest().getId();
 
         if(bookingJpaRepository.findById(id).isEmpty()){
             throw new BookingNotFoundException(id);
         }
 
-        if(propertyUserJpaRepository.findById(entity.getGuest().getId()).isEmpty()){
-            throw new UserNotFoundException(entity.getGuest().getId());
+        if(propertyUserJpaRepository.findById(idPropertyUser).isEmpty()){
+            throw new UserNotFoundException(idPropertyUser);
         }
 
-        if(propertyJpaRepository.findById(entity.getProperty().getId()).isEmpty()){
-            throw new PropertyNotFoundException(entity.getProperty().getId());
+        if(propertyJpaRepository.findById(idProperty).isEmpty()){
+            throw new PropertyNotFoundException(idProperty);
         }
 
         propertyUserJpaRepository.save(entity.getGuest());
@@ -98,7 +98,6 @@ public class BookingDatasource implements BookingRepository {
                 booking.getEndDate());
     }
 
-    @Transactional
     public void updateStatus(Booking booking) {
         BookingEntity entity = MAPPER.map(booking);
         bookingJpaRepository.save(entity);

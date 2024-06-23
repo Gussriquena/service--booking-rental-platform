@@ -5,6 +5,8 @@ import com.service.booking.rental.platform.entities.Block;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper
 public interface BlockMapper {
 
@@ -13,4 +15,6 @@ public interface BlockMapper {
     BlockEntity map(Block block);
 
     Block map(BlockEntity entity);
+
+    List<Block> map(List<BlockEntity> entity);
 }

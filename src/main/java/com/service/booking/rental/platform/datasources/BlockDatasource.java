@@ -6,11 +6,13 @@ import com.service.booking.rental.platform.datasources.database.repository.Block
 import com.service.booking.rental.platform.datasources.database.repository.PropertyJpaRepository;
 import com.service.booking.rental.platform.datasources.mapper.BlockMapper;
 import com.service.booking.rental.platform.entities.Block;
+import com.service.booking.rental.platform.exceptions.BlockNotFound;
 import com.service.booking.rental.platform.exceptions.PropertyNotFoundException;
 import com.service.booking.rental.platform.repositores.BlockRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Component
 public class BlockDatasource implements BlockRepository {
@@ -29,15 +31,46 @@ public class BlockDatasource implements BlockRepository {
     }
 
     public Block create(Block block) {
-        Long propertyId = block.getProperty().getId();
+        Long idProperty = block.getProperty().getId();
 
-        PropertyEntity propertyEntity = propertyJpaRepository.findById(propertyId)
-                .orElseThrow(() -> new PropertyNotFoundException(propertyId));
+        PropertyEntity propertyEntity = propertyJpaRepository.findById(idProperty)
+                .orElseThrow(() -> new PropertyNotFoundException(idProperty));
 
         BlockEntity entity = MAPPER.map(block);
         BlockEntity createdBlock = blockJpaRepository.save(entity);
         createdBlock.setProperty(propertyEntity);
 
         return MAPPER.map(createdBlock);
+    }
+
+    public Block update(Block block) {
+        Long idProperty = block.getProperty().getId();
+
+        PropertyEntity propertyEntity = propertyJpaRepository.findById(idProperty)
+                .orElseThrow(() -> new PropertyNotFoundException(idProperty));
+
+        BlockEntity entity = MAPPER.map(block);
+        BlockEntity updatedBlock = blockJpaRepository.save(entity);
+        updatedBlock.setProperty(propertyEntity);
+
+        return MAPPER.map(updatedBlock);
+    }
+
+    public void delete(Long id) {
+        blockJpaRepository.deleteById(id);
+    }
+
+    public Block get(Long id) {
+        BlockEntity entity = blockJpaRepository.findById(id).orElseThrow(() -> new BlockNotFound(id));
+        return MAPPER.map(entity);
+    }
+
+    public List<Block> listByProperty(Long idProperty) {
+        PropertyEntity propertyEntity = propertyJpaRepository.findById(idProperty)
+                .orElseThrow(() -> new PropertyNotFoundException(idProperty));
+
+        List<BlockEntity> entity = blockJpaRepository.findByProperty(propertyEntity);
+
+        return MAPPER.map(entity);
     }
 }

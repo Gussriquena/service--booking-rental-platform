@@ -41,6 +41,21 @@ public class BookingValidation {
         validatePropertyOverlaps(block);
     }
 
+    public void validateBlockUpdateFeasibility(Block block){
+        validateDates(block.getStartDate(), block.getEndDate());
+        validatePropertyOverlaps(block);
+    }
+
+    private void validateDates(LocalDate startDate, LocalDate endDate){
+        if(isNull(startDate) || isNull(endDate)){
+            throw new InvalidDateException("Dates can't be null or empty");
+        }
+
+        if(startDate.isBefore(LocalDate.now())){
+            throw new InvalidDateException("Dates before current date can't be booked");
+        }
+    }
+
     private void validatePropertyOverlaps(Block block){
         boolean hasOverlapingDates = bookingRepository.hasOverlapingDates(block.getProperty().getId(), block.getStartDate(), block.getEndDate());
 
@@ -72,15 +87,4 @@ public class BookingValidation {
             throw new PropertyUnavailableException("The property is blocked within selected dates");
         }
     }
-
-    private void validateDates(LocalDate startDate, LocalDate endDate){
-        if(isNull(startDate) || isNull(endDate)){
-            throw new InvalidDateException("Dates can't be null or empty");
-        }
-
-        if(startDate.isBefore(LocalDate.now())){
-            throw new InvalidDateException("Dates before current date can't be booked");
-        }
-    }
-
 }
