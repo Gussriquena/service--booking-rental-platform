@@ -8,7 +8,7 @@ import com.service.booking.rental.platform.datasources.mapper.BlockMapper;
 import com.service.booking.rental.platform.entities.Block;
 import com.service.booking.rental.platform.exceptions.BlockNotFound;
 import com.service.booking.rental.platform.exceptions.PropertyNotFoundException;
-import com.service.booking.rental.platform.repositores.BlockRepository;
+import com.service.booking.rental.platform.repositories.BlockRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

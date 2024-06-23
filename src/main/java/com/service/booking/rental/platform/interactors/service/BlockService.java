@@ -3,7 +3,7 @@ package com.service.booking.rental.platform.interactors.service;
 import com.service.booking.rental.platform.entities.Block;
 import com.service.booking.rental.platform.interactors.usecase.CreateBlockUseCase;
 import com.service.booking.rental.platform.interactors.usecase.UpdateBlockUseCase;
-import com.service.booking.rental.platform.repositores.BlockRepository;
+import com.service.booking.rental.platform.repositories.BlockRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
