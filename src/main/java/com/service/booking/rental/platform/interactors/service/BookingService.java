@@ -5,7 +5,7 @@ import com.service.booking.rental.platform.entities.enums.BookingStatus;
 import com.service.booking.rental.platform.interactors.usecase.BookPropertyUseCase;
 import com.service.booking.rental.platform.interactors.usecase.UpdateBookingStatusUseCase;
 import com.service.booking.rental.platform.interactors.usecase.UpdateBookingUseCase;
-import com.service.booking.rental.platform.repositores.BookingRepository;
+import com.service.booking.rental.platform.repositories.BookingRepository;
 import org.springframework.stereotype.Service;
 
 

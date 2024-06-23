@@ -3,7 +3,7 @@ package com.service.booking.rental.platform.interactors.usecase;
 import com.service.booking.rental.platform.entities.Booking;
 import com.service.booking.rental.platform.entities.enums.BookingStatus;
 import com.service.booking.rental.platform.interactors.validate.BookingValidation;
-import com.service.booking.rental.platform.repositores.BookingRepository;
+import com.service.booking.rental.platform.repositories.BookingRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

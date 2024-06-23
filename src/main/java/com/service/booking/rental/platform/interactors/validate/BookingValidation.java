@@ -4,8 +4,8 @@ import com.service.booking.rental.platform.entities.Block;
 import com.service.booking.rental.platform.entities.Booking;
 import com.service.booking.rental.platform.exceptions.InvalidDateException;
 import com.service.booking.rental.platform.exceptions.PropertyUnavailableException;
-import com.service.booking.rental.platform.repositores.BlockRepository;
-import com.service.booking.rental.platform.repositores.BookingRepository;
+import com.service.booking.rental.platform.repositories.BlockRepository;
+import com.service.booking.rental.platform.repositories.BookingRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

@@ -11,7 +11,7 @@ import com.service.booking.rental.platform.entities.Booking;
 import com.service.booking.rental.platform.exceptions.BookingNotFoundException;
 import com.service.booking.rental.platform.exceptions.PropertyNotFoundException;
 import com.service.booking.rental.platform.exceptions.UserNotFoundException;
-import com.service.booking.rental.platform.repositores.BookingRepository;
+import com.service.booking.rental.platform.repositories.BookingRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

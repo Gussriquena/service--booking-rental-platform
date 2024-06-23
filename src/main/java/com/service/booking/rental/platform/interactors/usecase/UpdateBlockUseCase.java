@@ -2,7 +2,7 @@ package com.service.booking.rental.platform.interactors.usecase;
 
 import com.service.booking.rental.platform.entities.Block;
 import com.service.booking.rental.platform.interactors.validate.BookingValidation;
-import com.service.booking.rental.platform.repositores.BlockRepository;
+import com.service.booking.rental.platform.repositories.BlockRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

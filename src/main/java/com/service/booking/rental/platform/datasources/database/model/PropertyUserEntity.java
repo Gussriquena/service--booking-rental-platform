@@ -2,10 +2,7 @@ package com.service.booking.rental.platform.datasources.database.model;
 
 import com.service.booking.rental.platform.entities.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -14,6 +11,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "PROPERTY_USER")
 public class PropertyUserEntity {

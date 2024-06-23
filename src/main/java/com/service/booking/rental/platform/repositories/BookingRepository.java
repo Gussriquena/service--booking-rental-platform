@@ -1,4 +1,4 @@
-package com.service.booking.rental.platform.repositores;
+package com.service.booking.rental.platform.repositories;
 
 import com.service.booking.rental.platform.entities.Booking;
 
