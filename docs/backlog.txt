@@ -1,0 +1,28 @@
+Improvements list:
+
+# Fix
+- Apply @Repository into database layer
+- Include @Transactional into BookingDatasource, on method updateBookingById
+- Include unit tests for not 200 response on controllers
+- Optimize SQL queries
+- Fix grammar errors
+- Apply data validation and remove from domain layer
+
+# Changes
+- Replace @ControllerAdvice by @RestControllerAdvice
+- Use ProblemDetails from spring on ControllerAdvice instead of GeneralError
+- Study the applying of fetch (lazy and eager) and entityGraph
+- Include instructions to run the application into readme file
+- Include more business information on readme
+
+# Improvements
+- Create endpoints for listing bookings by property and by id
+- Implements listing of bookings by user
+- Swagger documentation or OpenAPI Contract First (Apicurio Studio)
+- HATEOAS
+- Pagination on blocks and booking list
+- Use Jackson lib to assure nullable fields won't be displayed
+- Use @Valid to assure data integrity on controller layer
+- Include a dockerfile to run application
+- Develop Integrated Tests
+- Test in memory Caching

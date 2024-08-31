@@ -3,6 +3,7 @@ package com.service.booking.rental.platform.transportlayers.controller;
 import com.service.booking.rental.platform.entities.Booking;
 import com.service.booking.rental.platform.entities.enums.BookingStatus;
 import com.service.booking.rental.platform.interactors.service.BookingService;
+import com.service.booking.rental.platform.transportlayers.controller.swagger.BookingController;
 import com.service.booking.rental.platform.transportlayers.http.request.BookingCreateRequest;
 import com.service.booking.rental.platform.transportlayers.http.request.BookingUpdateRequest;
 import com.service.booking.rental.platform.transportlayers.http.response.BookingResponse;
@@ -16,7 +17,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController
 @RequestMapping("/booking")
 @Slf4j
-public class BookingControllerImpl {
+public class BookingControllerImpl implements BookingController {
     private static final BookingMapper MAPPER = BookingMapper.INSTANCE;
     private final BookingService bookingService;
 

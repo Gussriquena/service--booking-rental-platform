@@ -5,8 +5,7 @@ import java.time.LocalDate;
 public class Constants {
 
     public static final Long ID_PROPERTY = 1L;
-    public static final Long ID_GUEST = 1L;
-    public static final LocalDate START_DATE = LocalDate.of(2024, 7, 25);
-    public static final LocalDate END_DATE = LocalDate.of(2024, 7, 29);
+    public static final LocalDate START_DATE = LocalDate.of(2024, 9, 25);
+    public static final LocalDate END_DATE = LocalDate.of(2024, 9, 29);
 
 }

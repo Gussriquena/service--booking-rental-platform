@@ -2,6 +2,7 @@ package com.service.booking.rental.platform.transportlayers.controller;
 
 import com.service.booking.rental.platform.entities.Block;
 import com.service.booking.rental.platform.interactors.service.BlockService;
+import com.service.booking.rental.platform.transportlayers.controller.swagger.BlockController;
 import com.service.booking.rental.platform.transportlayers.http.request.BlockRequest;
 import com.service.booking.rental.platform.transportlayers.http.response.BlockResponse;
 import com.service.booking.rental.platform.transportlayers.mappers.BlockMapper;
@@ -14,10 +15,10 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
+@Slf4j
 @RestController
 @RequestMapping("/block")
-@Slf4j
-public class BlockControllerImpl {
+public class BlockControllerImpl implements BlockController {
 
     private static final BlockMapper MAPPER = BlockMapper.INSTANCE;
     private final BlockService blockService;
@@ -35,6 +36,7 @@ public class BlockControllerImpl {
         BlockResponse response = MAPPER.map(createdBlock);
         return ResponseEntity.status(CREATED).body(response);
     }
+
 
     @GetMapping
     public ResponseEntity<List<BlockResponse>> listByPropertyId(@Param("idProperty") Long idProperty){
