@@ -23,8 +23,6 @@
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
 		<archunit.version>1.2.1</archunit.version>
 		<openapi.starter.webmvc.ui.version>2.6.0</openapi.starter.webmvc.ui.version>
-		<rest-assured.version>5.5.0</rest-assured.version>
-		<testcontainers.version>1.20.0</testcontainers.version>
 	</properties>
 
 	<dependencies>
@@ -87,11 +85,6 @@
 			<version>${openapi.starter.webmvc.ui.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<version>${rest-assured.version}</version>
-		</dependency>
 	</dependencies>
 
 	<build>
