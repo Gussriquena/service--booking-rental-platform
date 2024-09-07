@@ -1,5 +1,9 @@
 Improvements list:
 
+# Prioritize
+- use ProblemDetails
+- fix auth
+
 # Fix
 - Apply @Repository into database layer
 - Include @Transactional into BookingDatasource, on method updateBookingById

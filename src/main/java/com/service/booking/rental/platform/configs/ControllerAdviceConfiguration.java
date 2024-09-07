@@ -47,6 +47,17 @@ public class ControllerAdviceConfiguration {
     }
 
     @ResponseBody
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    @ResponseStatus(FORBIDDEN)
+    public GeneralError InvalidJwtAuthenticationException(Exception e){
+        log.error(e.getMessage());
+        return GeneralError.builder()
+                .code(403)
+                .message(e.getMessage())
+                .build();
+    }
+
+    @ResponseBody
     @ExceptionHandler(PropertyUnavailableException.class)
     @ResponseStatus(CONFLICT)
     public GeneralError propertyUnavailableException(Exception e){

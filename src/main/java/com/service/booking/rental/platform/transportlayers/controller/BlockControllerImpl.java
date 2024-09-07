@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @Slf4j
 @RestController
-@RequestMapping("/block")
+@RequestMapping("/api/block")
 public class BlockControllerImpl implements BlockController {
 
     private static final BlockMapper MAPPER = BlockMapper.INSTANCE;

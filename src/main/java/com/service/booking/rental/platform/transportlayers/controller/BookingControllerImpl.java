@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/api/booking")
 @Slf4j
 public class BookingControllerImpl implements BookingController {
     private static final BookingMapper MAPPER = BookingMapper.INSTANCE;
